@@ -4,3 +4,4 @@ pub mod kernel_version;
 pub mod os;
 pub mod uptime;
 pub mod user;
+pub mod packages;
