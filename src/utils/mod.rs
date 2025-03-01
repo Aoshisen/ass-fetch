@@ -5,3 +5,4 @@ pub mod os;
 pub mod uptime;
 pub mod user;
 pub mod packages;
+pub mod shell;

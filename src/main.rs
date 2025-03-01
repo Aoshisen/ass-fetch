@@ -44,4 +44,8 @@ fn main() {
         Ok(packages) => println!("Packages: {}", packages),
         Err(e) => println!("获取系统创建包个数失败: {}", e),
     }
+
+    if let Some(shell) = utils::shell::get() {
+        println!("shell {}", shell);
+    }
 }
