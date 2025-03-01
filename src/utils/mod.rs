@@ -6,3 +6,4 @@ pub mod uptime;
 pub mod user;
 pub mod packages;
 pub mod shell;
+pub mod resolution;

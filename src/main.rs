@@ -48,4 +48,7 @@ fn main() {
     if let Some(shell) = utils::shell::get() {
         println!("shell {}", shell);
     }
+    if let Ok(resolution) = utils::resolution::get() {
+        println!("resolution:{}", resolution);
+    }
 }
