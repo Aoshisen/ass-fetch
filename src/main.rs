@@ -53,5 +53,26 @@ fn main() {
     }
     println!("DE: {}", utils::de::get());
     println!("WM: {}", utils::wm::get());
-    println!("Theme: {}", utils::wm::get_theme());  // 添加这一行来显示主题信息
+    println!("Theme: {}", utils::wm::get_theme()); // 添加这一行来显示主题信息
+    println!("Terminal: {}", utils::terminal::get());
+    println!("Terminal Font: {}", utils::terminal::font());
+
+    // 获取 CPU 信息
+    match utils::cpu::get() {
+        Ok(cpu_info) => println!("CPU: {}", cpu_info),
+        Err(e) => println!("获取 CPU 信息失败: {}", e),
+    }
+
+    // 获取 GPU 信息
+    match utils::gpu::get() {
+        Ok(gpu_info) => println!("GPU: {}", gpu_info),
+        Err(e) => println!("获取 GPU 信息失败: {}", e),
+    }
+
+    // 获取内存信息
+    match utils::memory::get() {
+        Ok(memory_info) => println!("Memory: {}", memory_info),
+        Err(e) => println!("获取内存信息失败: {}", e),
+    }
+    utils::distro::get_distro_ascii();
 }
