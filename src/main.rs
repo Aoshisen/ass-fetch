@@ -52,4 +52,6 @@ fn main() {
         println!("resolution:{}", resolution);
     }
     println!("DE: {}", utils::de::get());
+    println!("WM: {}", utils::wm::get());
+    println!("Theme: {}", utils::wm::get_theme());  // 添加这一行来显示主题信息
 }
