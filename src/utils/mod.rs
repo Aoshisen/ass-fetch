@@ -1,9 +1,11 @@
+pub mod de;
 pub mod host_model;
 pub mod hostname;
 pub mod kernel_version;
 pub mod os;
+pub mod packages;
+pub mod resolution;
+pub mod shell;
 pub mod uptime;
 pub mod user;
-pub mod packages;
-pub mod shell;
-pub mod resolution;
+pub mod wm;

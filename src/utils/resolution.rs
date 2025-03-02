@@ -16,7 +16,7 @@ pub fn get() -> Result<String, String> {
 }
 
 pub fn extract_screen_resolution(screen_info: &str) -> Result<String, String> {
-    let re = Regex::new(r"Display.+:(.+)").map_err(|_| "FAIL".to_string())?;
+    let re = Regex::new(r"Display.+:(.+)x").map_err(|_| "Fail to compile regex")?;
     if let Some(captures) = re.captures(screen_info) {
         if let Some(sec_str) = captures.get(1) {
             return String::from_str(sec_str.as_str())

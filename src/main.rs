@@ -51,4 +51,5 @@ fn main() {
     if let Ok(resolution) = utils::resolution::get() {
         println!("resolution:{}", resolution);
     }
+    println!("DE: {}", utils::de::get());
 }
