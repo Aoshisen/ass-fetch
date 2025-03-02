@@ -39,13 +39,13 @@ pub fn get_architecture() -> String {
     parse_output(output, "Failed to get architecture")
 }
 
-pub fn get() -> Result<String, io::Error> {
+pub fn get() -> String {
     let os_name = get_os_name();
     let os_version = get_os_version();
     let kernel_version = get_build_version();
     let architecture = get_architecture();
-    Ok(format!(
+    format!(
         "{} {} {} {}",
         os_name, os_version, kernel_version, architecture
-    ))
+    )
 }

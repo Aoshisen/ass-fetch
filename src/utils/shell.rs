@@ -4,16 +4,16 @@ use std::{env, process::Command};
 
 use regex::Regex;
 
-pub fn get() -> Option<String> {
+pub fn get() -> String {
     let output = Command::new(env::var("SHELL").unwrap())
         .arg("--version")
         .output()
         .expect("Failed to execute command");
     let shell = str::from_utf8(&output.stdout).unwrap().to_string();
     if let Ok(shell_info) = extract_shell_info(&shell) {
-        return Some(shell_info);
+        return shell_info;
     }
-    Some(shell)
+    shell
 }
 pub fn extract_shell_info(shell_info: &str) -> Result<String, String> {
     // 匹配 zsh 5.9 (arm64-apple-darwin24.0) 中zsh 5.9

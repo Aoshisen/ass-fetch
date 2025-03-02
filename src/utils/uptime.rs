@@ -3,27 +3,40 @@ use regex::Regex;
 use std::process::Command;
 use std::str::FromStr;
 
-pub fn get() -> Result<TimeDelta, std::io::Error> {
+pub fn get() -> String {
     // 执行 `uptime` 命令获取系统的运行时间
-    let output = Command::new("sysctl")
+    let output = match Command::new("sysctl")
         .arg("-n")
         .arg("kern.boottime")
-        .output()?;
+        .output()
+    {
+        Ok(output) => output,
+        Err(_) => return String::from("UNKNOWN"),
+    };
 
     if !output.status.success() {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Failed to get boot time",
-        ));
+        return String::from("UNKNOWN");
     }
 
     // 获取命令的输出，并处理为字符串
     let boot_time_str = String::from_utf8_lossy(&output.stdout).trim().to_string();
-    //OK
+
     match extract_sec_from_boot_time(&boot_time_str) {
-        Ok(formatted_uptime) => Ok(calculate_uptime(formatted_uptime)),
-        Err(e) => Err(std::io::Error::new(std::io::ErrorKind::InvalidData, e)),
+        Ok(formatted_uptime) => {
+            let uptime = calculate_uptime(formatted_uptime);
+            format_uptime(uptime)
+        }
+        Err(_) => String::from("UNKNOWN"),
     }
+}
+
+fn format_uptime(uptime: TimeDelta) -> String {
+    format!(
+        "{} days, {} hours, {} mins",
+        uptime.num_days(),
+        uptime.num_hours() % 24,
+        uptime.num_minutes() % 60
+    )
 }
 
 fn extract_sec_from_boot_time(boot_time_str: &str) -> Result<i64, String> {

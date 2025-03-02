@@ -3,16 +3,16 @@ use std::str::{self, FromStr};
 
 use regex::Regex;
 
-pub fn get() -> Result<String, String> {
+pub fn get() -> String {
     let output = Command::new("screenresolution")
         .arg("get")
         .output()
         .unwrap();
     let screen_resolution = str::from_utf8(&output.stderr).unwrap().to_string();
     if let Ok(resolution) = extract_screen_resolution(&screen_resolution) {
-        return Ok(resolution);
+        return resolution;
     }
-    Err("fail to extract_screen_resolution".to_string())
+    String::from("UNKNOWN")
 }
 
 pub fn extract_screen_resolution(screen_info: &str) -> Result<String, String> {

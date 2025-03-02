@@ -1,5 +1,9 @@
-use std::env::{self, VarError};
+use std::env::{self};
 
-pub fn get() -> Result<String, VarError> {
-    env::var("USER")
+pub fn get() -> String {
+    if let Ok(user) = env::var("USER") {
+        return user;
+    } else {
+        return String::from("UNKNOWN");
+    }
 }

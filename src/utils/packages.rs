@@ -44,8 +44,8 @@ fn get_port_list_num() -> String {
     parse_output(wc_l, "获取port信息失败")
 }
 
-pub fn get() -> Result<String, io::Error> {
+pub fn get() -> String {
     let brew_list = get_brew_list_num();
     let port_list = get_port_list_num();
-    Ok(format!("{} (brew), {} (port)", brew_list, port_list))
+    format!("{} (brew), {} (port)", brew_list, port_list)
 }
