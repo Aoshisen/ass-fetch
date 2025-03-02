@@ -6,43 +6,30 @@ fn main() {
 }
 
 fn collect_system_info() -> Vec<String> {
-    let mut info_lines = Vec::new();
-    // 获取主机名
-    info_lines.push(format!("Hostname: {}", utils::hostname::get()));
-    // 获取用户名
-    info_lines.push(format!("Username: {}", utils::user::get()));
-    // 获取系统信息
-    info_lines.push(format!("OS: {}", utils::os::get()));
-    // 获取主机信息
-    info_lines.push(format!("Host: {}", utils::host_model::get()));
-    // 获取 Kernel 信息
-    info_lines.push(format!("Kernel: {}", utils::kernel_version::get()));
-    // 获取系统运行时间
-    info_lines.push(format!("Uptime: {}", utils::uptime::get()));
-    // 获取包信息
-    info_lines.push(format!("Packages: {}", utils::packages::get()));
-    // 获取 Shell 信息
-    info_lines.push(format!("Shell: {}", utils::shell::get()));
-    // 获取分辨率
-    info_lines.push(format!("Resolution: {}", utils::resolution::get()));
-    //获取DE:
-    info_lines.push(format!("DE: {}", utils::de::get()));
-    //获取WM:
-    info_lines.push(format!("WM: {}", utils::wm::get()));
-    //获取Theme:
-    info_lines.push(format!("Theme: {}", utils::wm::get_theme()));
-    //获取终端:
-    info_lines.push(format!("Terminal: {}", utils::terminal::get()));
-    //获取终端字体
-    info_lines.push(format!("Terminal Font: {}", utils::terminal::font()));
-    // 获取 CPU 信息
-    info_lines.push(format!("CPU: {}", utils::cpu::get()));
-    // 获取 GPU 信息
-    info_lines.push(format!("GPU: {}", utils::gpu::get()));
-    // 获取内存信息
-    info_lines.push(format!("Memory: {}", utils::memory::get()));
+    let info_configs: [(_, Box<dyn Fn() -> String>); 17] = [
+        ("Hostname", Box::new(|| utils::hostname::get())),
+        ("Username", Box::new(|| utils::user::get())),
+        ("OS", Box::new(|| utils::os::get())),
+        ("Host", Box::new(|| utils::host_model::get())),
+        ("Kernel", Box::new(|| utils::kernel_version::get())),
+        ("Uptime", Box::new(|| utils::uptime::get())),
+        ("Packages", Box::new(|| utils::packages::get())),
+        ("Shell", Box::new(|| utils::shell::get())),
+        ("Resolution", Box::new(|| utils::resolution::get())),
+        ("DE", Box::new(|| utils::de::get())),
+        ("WM", Box::new(|| utils::wm::get())),
+        ("Theme", Box::new(|| utils::wm::get_theme())),
+        ("Terminal", Box::new(|| utils::terminal::get())),
+        ("Terminal Font", Box::new(|| utils::terminal::font())),
+        ("CPU", Box::new(|| utils::cpu::get())),
+        ("GPU", Box::new(|| utils::gpu::get())),
+        ("Memory", Box::new(|| utils::memory::get())),
+    ];
 
-    info_lines
+    info_configs
+        .iter()
+        .map(|(label, getter)| format!("{}: {}", label, getter()))
+        .collect()
 }
 
 fn display_layout(info_lines: Vec<String>, ascii_art: String) {

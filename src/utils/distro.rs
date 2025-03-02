@@ -1,7 +1,6 @@
 pub fn get_distro_ascii() -> String {
     let arch_str = String::from(
-        "
-                   -`
+"                   -`
                   .o+`
                  `ooo/
                 `+oooo:
@@ -21,7 +20,7 @@ pub fn get_distro_ascii() -> String {
  `++:.                           `-/+/
  .`                                 `/",
     );
-    let str = String::from(
+    let _str = String::from(
 "                    c.'
                  ,xNMM.
                .OMMMMo
@@ -41,5 +40,5 @@ pub fn get_distro_ascii() -> String {
        .cooc,.    .,coo:.",
     );
 
-    str
+    arch_str
 }
